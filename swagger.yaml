@@ -1,0 +1,57 @@
+swagger: "2.0"
+info:
+  version: "0.1.0"
+  title: "Budget app service API"
+  description: "Budget app service API is used for managing personal budget"
+schemes:
+- "http"
+basePath: "/api/v1"
+paths:
+  /spendings:
+    get:
+      tags:
+        - "Spendings"
+        summary: "Get spendings"
+        description: ""
+        operationId: "getSpendings"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        responses:
+          "200":
+            description: "Successful operation"
+            schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Spending"
+definitions:
+  Spending:
+    type: "object"
+    required:
+    - "category"
+    - "amount"
+    - "currency"
+    properties:
+      id:
+        type: "string"
+      createdAt:
+        type: "date"
+      note:
+        type: "string"
+      labels:
+        type: "array"
+        items:
+          type: "string"
+      category:
+        type: "string"
+      amount:
+        type: "float"
+      currency:
+        type: "string"
+        description: "currency type"
+        enum:
+        - "BYN"
+        - "USD"
+        - "EUR"
+        - "RUB"
