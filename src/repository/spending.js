@@ -1,9 +1,21 @@
 const { Spending } = require('../domain/spending')
 
-const getAll = async (query) => {
+const getAll = async ({ category, from, to, labels, page, perPage }) => {
   try {
-    const spendings = await Spending.find(query)
-    return spendings
+    const query = {
+      ...(category ? { category: category } : {}),
+      ...(from && to ? { createdAt: { $gte: from, $lte: to } } : {}),
+      ...(labels ? { labels: { $in: labels } } : {})
+    }
+
+    const spendings = await Spending
+      .find(query)
+      .skip((page * perPage) - perPage)
+      .limit(+perPage)
+
+    const count = await Spending.countDocuments(query)
+
+    return { spendings, page: page || 1, totalPages: Math.ceil(count / (perPage || count)) }
   } catch (error) {
     console.error('repository:getSpendings:error', error)
     return error
