@@ -1,5 +1,11 @@
 Budget App
 
+TODO:
+- Add entities validation
+- Update swagger spec
+- Add spendings list query filters
+- Add PATCH, DELETE methods
+
 Spending document:
 - id: String
 - createdAt: Date
