@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Budget app service",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "nodemon ./src/index.js | node ./src/logger/stdout",
     "lint": "eslint"
   },
   "keywords": [
@@ -17,7 +17,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.13.3"
+    "express-pino-logger": "^6.0.0",
+    "joi": "^17.4.2",
+    "mongoose": "^5.13.3",
+    "pino": "^6.13.0",
+    "pino-tee": "^0.3.0"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
@@ -25,6 +29,7 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0"
+    "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.12"
   }
 }

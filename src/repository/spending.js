@@ -1,4 +1,5 @@
 const { Spending } = require('../domain/spending')
+const logger = require('../logger')
 
 const getAll = async ({ category, from, to, labels, page, perPage }) => {
   try {
@@ -17,17 +18,16 @@ const getAll = async ({ category, from, to, labels, page, perPage }) => {
 
     return { spendings, page: page || 1, totalPages: Math.ceil(count / (perPage || count)) }
   } catch (error) {
-    console.error('repository:getSpendings:error', error)
+    logger.error('repository:getSpendings', error)
     return error
   }
 }
 
 const getById = async (spendingId) => {
   try {
-    const spending = await Spending.findOne({ _id: spendingId })
-    return spending
+    return await Spending.findOne({ _id: spendingId })
   } catch (error) {
-    console.error('repository:getById:error', error)
+    logger.error('repository:getById', error)
     return error
   }
 }
@@ -37,7 +37,7 @@ const store = async (data) => {
     const { _id } = await Spending.create(data)
     return _id
   } catch (error) {
-    console.error('repository:store:error', error)
+    logger.error('repository:store', error)
     return error
   }
 }
